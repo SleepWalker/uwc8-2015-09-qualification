@@ -1,7 +1,14 @@
 import React from 'react';
+import MainNav from 'MainNav.jsx';
+import PhotosPage from 'PhotosPage.jsx';
+import PreferencesPage from 'PreferencesPage.jsx';
 
-export default class Hello extends React.Component {
+export default class App extends React.Component {
     render() {
-        return <h1>Hello world</h1>;
+        return <div className="app">
+            <MainNav />
+            <PhotosPage />
+            <PreferencesPage />
+        </div>;
     }
 }
