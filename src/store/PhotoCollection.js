@@ -1,5 +1,8 @@
 export default class PhotoCollection {
-    index = 0
+    constructor({category}) {
+        this.category = category;
+        this.index = 0;
+    }
 
     next() {
         if (this.index < 10) {
@@ -18,6 +21,6 @@ export default class PhotoCollection {
     }
 
     getUrl(index) {
-        return `http://lorempixel.com/640/480/nightlife/${index}`;
+        return `http://lorempixel.com/640/480/${this.category}/${index}`;
     }
 }

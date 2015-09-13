@@ -1,24 +1,49 @@
 import React from 'react';
 
 export default class CategoryMenu extends React.Component {
+    state = {
+        currentCategorie: this.props.initialCategory,
+        categories: [
+            'abstract',
+            'animals',
+            'business',
+            'cats',
+            'city',
+            'food',
+            'nightlife',
+            'fashion',
+            'people',
+            'nature',
+            'sports',
+            'technics',
+            'transport',
+            'technics'
+        ]
+    }
+
     render() {
-        return <div className="category">
-            <select name="category">
-                <option value="abstract">Abstract</option>
-                <option value="animals">Animals</option>
-                <option value="business">Business</option>
-                <option value="cats">Cats</option>
-                <option value="city">City</option>
-                <option value="food">Food</option>
-                <option value="nightlife">Nightlife</option>
-                <option value="fashion">Fashion</option>
-                <option value="people">People</option>
-                <option value="nature">Nature</option>
-                <option value="sports">Sports</option>
-                <option value="technics">Technics</option>
-                <option value="transport">Transport</option>
-                <option value="technics">Technics</option>
-            </select>
-        </div>;
+        var {currentCategorie, categories} = this.state;
+
+        categories = categories.map(function(categorie) {
+            return (
+                <option value={categorie} selected={categorie == currentCategorie}>
+                    {categorie}
+                </option>
+            );
+        });
+
+        return (
+            <div className="category">
+                <select ref="category" onChange={this.onChange}>
+                    {categories}
+                </select>
+            </div>
+        );
+    }
+
+    onChange = (event) => {
+        var category = React.findDOMNode(this.refs.category).value;
+
+        this.props.onChange(category);
     }
 }
