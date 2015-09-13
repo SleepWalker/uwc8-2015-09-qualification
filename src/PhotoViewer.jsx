@@ -1,13 +1,36 @@
 import React from 'react';
 
 export default class PhotoViewer extends React.Component {
+    state = {
+        url: this.props.photos.next()
+    }
+
     render() {
-        return <div className="photo-viewer">
-            <img src="http://lorempixel.com/output/nature-q-c-640-480-10.jpg" />
-            <div className="photo-viewer__controls">
-                <button className="control control--prev">prev</button>
-                <button className="control control--next">next</button>
+        var {url} = this.state;
+
+        return (
+            <div className="photo-viewer">
+                <img src={url} />
+
+                <div className="photo-viewer__controls">
+                    <button className="control control--prev" onClick={this.prev}>prev</button>
+                    <button className="control control--next" onClick={this.next}>next</button>
+                </div>
             </div>
-        </div>;
+        );
+    }
+
+    next = this.switchTo.bind(this, 'next')
+
+    prev = this.switchTo.bind(this, 'prev')
+
+    switchTo(direction) {
+        var url = this.props.photos[direction]();
+
+        if (url) {
+            this.setState({
+                url
+            });
+        }
     }
 }

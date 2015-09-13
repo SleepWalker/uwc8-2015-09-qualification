@@ -25,7 +25,7 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/,
-                loader: 'babel?optional[]=runtime'
+                loader: 'babel?optional[]=runtime&optional[]=es7.classProperties'
             }
         ]
     }
