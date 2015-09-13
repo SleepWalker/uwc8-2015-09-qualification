@@ -2,7 +2,6 @@ import React from 'react';
 
 export default class CategoryMenu extends React.Component {
     state = {
-        currentCategorie: this.props.initialCategory,
         categories: [
             'abstract',
             'animals',
@@ -22,11 +21,11 @@ export default class CategoryMenu extends React.Component {
     }
 
     render() {
-        var {currentCategorie, categories} = this.state;
+        var {categories} = this.state;
 
         categories = categories.map(function(categorie) {
             return (
-                <option value={categorie} selected={categorie == currentCategorie}>
+                <option value={categorie}>
                     {categorie}
                 </option>
             );
@@ -34,7 +33,7 @@ export default class CategoryMenu extends React.Component {
 
         return (
             <div className="category">
-                <select ref="category" onChange={this.onChange}>
+                <select ref="category" defaultValue={this.props.initialCategory} onChange={this.onChange}>
                     {categories}
                 </select>
             </div>

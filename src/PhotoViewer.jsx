@@ -2,13 +2,13 @@ import React from 'react';
 
 export default class PhotoViewer extends React.Component {
     state = {
-        url: this.props.photos.next()
+        url: this.props.photos.getUrl()
     }
 
-    constructor(props) {
-        super(props);
-
-        this.photos = this.props.photos;
+    componentWillReceiveProps(newProps) {
+        this.setState({
+            url: newProps.photos.getUrl()
+        });
     }
 
     render() {
@@ -31,17 +31,12 @@ export default class PhotoViewer extends React.Component {
     prev = this.switchTo.bind(this, 'prev')
 
     switchTo(direction) {
-        var url = this.photos[direction]();
+        var url = this.props.photos[direction]();
 
         if (url) {
             this.setState({
                 url
             });
         }
-    }
-
-    setPhotos(photos) {
-        this.photos = photos;
-        this.next();
     }
 }

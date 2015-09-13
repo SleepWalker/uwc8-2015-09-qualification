@@ -1,12 +1,15 @@
 export default class PhotoCollection {
-    constructor({category}) {
+    constructor({category, width = 480, height = 640, index = 1}) {
         this.category = category;
-        this.index = 0;
+        this.width = width;
+        this.height = height;
+        this.index = index;
     }
 
     next() {
         if (this.index < 10) {
-            return this.getUrl(++this.index);
+            this.index++;
+            return this.getUrl();
         } else {
             return '';
         }
@@ -14,13 +17,23 @@ export default class PhotoCollection {
 
     prev() {
         if (this.index > 1) {
-            return this.getUrl(--this.index);
+            this.index--;
+            return this.getUrl();
         } else {
             return '';
         }
     }
 
+    new(options) {
+        return new PhotoCollection(Object.assign({}, this, options));
+    }
+
     getUrl(index) {
-        return `http://lorempixel.com/640/480/${this.category}/${index}`;
+        return 'http://lorempixel.com/' + [
+            this.width,
+            this.height,
+            this.category,
+            this.index
+        ].join('/')
     }
 }

@@ -7,8 +7,12 @@ export default class App extends React.Component {
     render() {
         return <div className="app">
             <MainNav />
-            <PhotosPage />
-            <PreferencesPage />
+            <PhotosPage ref="photos" />
+            <PreferencesPage onSizeChange={this.onSizeChange} />
         </div>;
+    }
+
+    onSizeChange = (size) => {
+        this.refs.photos.changeSize(size);
     }
 }
