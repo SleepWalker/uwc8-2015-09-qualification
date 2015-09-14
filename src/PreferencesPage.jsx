@@ -1,18 +1,24 @@
 import React from 'react';
 
 export default class PreferencesPage extends React.Component {
+    state = {
+        width: this.props.initialWidth,
+        height: this.props.initialHeight
+    }
+
     render() {
-        var {initialWidth, initialHeight} = this.props;
+        var {width, height} = this.state;
 
         return (
             <div className="preferences">
                 <div className="preferences__row">
                     <label htmlFor="preference-width">Width:</label>
-                    <input type="text" id="preference-width" onChange={this.onWidthChage} defaultValue={initialWidth} />
+                    <input type="text" id="preference-width" onChange={this.onWidthChage} value={width} />
+                    <a href="#" onClick={this.onFlipSize}>flip</a>
                 </div>
                 <div className="preferences__row">
                     <label htmlFor="preference-height">Height:</label>
-                    <input type="text" id="preference-height" onChange={this.onHeightChage} defaultValue={initialHeight} />
+                    <input type="text" id="preference-height" onChange={this.onHeightChage} value={height} />
                 </div>
             </div>
         );
@@ -30,7 +36,20 @@ export default class PreferencesPage extends React.Component {
         }, this.onSizeChange);
     }
 
-    onSizeChange() {
+    onFlipSize = (event) => {
+        event.preventDefault();
+
+        this.flipSize();
+    }
+
+    flipSize() {
+        this.setState({
+            width: this.state.height,
+            height: this.state.width
+        }, this.onSizeChange);
+    }
+
+    onSizeChange = () => {
         this.props.onSizeChange({
             width: this.state.width,
             height: this.state.height
