@@ -8,7 +8,11 @@ const DEFAULT_CATEGORY = 'sports';
 
 export default class PhotosPage extends React.Component {
     state = {
-        photos: new PhotoCollection({category: DEFAULT_CATEGORY}),
+        photos: new PhotoCollection({
+            category: DEFAULT_CATEGORY,
+            width: this.props.initialWidth,
+            height: this.props.initialHeight
+        }),
     }
 
     render() {
@@ -17,17 +21,17 @@ export default class PhotosPage extends React.Component {
         return <div className="photos">
             <Filter />
             <PhotoViewer photos={photos} ref="viewer" />
-            <CategoryMenu initialCategory={photos.category} onChange={this.changeCategory} />
+            <CategoryMenu initialCategory={photos.category} onChange={this.setCategory} />
         </div>;
     }
 
-    changeCategory = (category) => {
+    setCategory = (category) => {
         this.setState({
             photos: this.state.photos.new({category, index: 1})
         });
     }
 
-    changeSize = (size) => {
+    setSize = (size) => {
         this.setState({
             photos: this.state.photos.new(size)
         });

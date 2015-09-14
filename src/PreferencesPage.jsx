@@ -1,23 +1,18 @@
 import React from 'react';
 
 export default class PreferencesPage extends React.Component {
-    state = {
-        width: 480,
-        height: 640
-    }
-
     render() {
-        var {width, height} = this.state;
+        var {initialWidth, initialHeight} = this.props;
 
         return (
             <div className="preferences">
                 <div className="preferences__row">
                     <label htmlFor="preference-width">Width:</label>
-                    <input type="text" id="preference-width" onChange={this.onWidthChage} defaultValue={width} />
+                    <input type="text" id="preference-width" onChange={this.onWidthChage} defaultValue={initialWidth} />
                 </div>
                 <div className="preferences__row">
                     <label htmlFor="preference-height">Height:</label>
-                    <input type="text" id="preference-height" onChange={this.onHeightChage} defaultValue={height} />
+                    <input type="text" id="preference-height" onChange={this.onHeightChage} defaultValue={initialHeight} />
                 </div>
             </div>
         );
