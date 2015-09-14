@@ -15,8 +15,7 @@ export default class CategoryMenu extends React.Component {
             'nature',
             'sports',
             'technics',
-            'transport',
-            'technics'
+            'transport'
         ]
     }
 
@@ -25,7 +24,7 @@ export default class CategoryMenu extends React.Component {
 
         categories = categories.map(function(categorie) {
             return (
-                <option value={categorie}>
+                <option value={categorie} key={'c_' + categorie}>
                     {categorie}
                 </option>
             );

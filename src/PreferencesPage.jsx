@@ -8,7 +8,6 @@ export default class PreferencesPage extends React.Component {
 
     render() {
         var {width, height} = this.state;
-        var {onWidthChage, onHeightChage} = this.props;
 
         return (
             <div className="preferences">
@@ -23,7 +22,6 @@ export default class PreferencesPage extends React.Component {
             </div>
         );
     }
-    // TODO: validation width/height
 
     onWidthChage = (event) => {
         this.setState({

@@ -9,7 +9,7 @@ export default class PhotoCollection {
     next() {
         if (this.index < 10) {
             this.index++;
-            return this.getUrl();
+            return this.getSrc();
         } else {
             return '';
         }
@@ -18,7 +18,7 @@ export default class PhotoCollection {
     prev() {
         if (this.index > 1) {
             this.index--;
-            return this.getUrl();
+            return this.getSrc();
         } else {
             return '';
         }
@@ -28,7 +28,7 @@ export default class PhotoCollection {
         return new PhotoCollection(Object.assign({}, this, options));
     }
 
-    getUrl(index) {
+    getSrc() {
         return 'http://lorempixel.com/' + [
             this.width,
             this.height,
