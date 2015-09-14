@@ -7,21 +7,29 @@ export default class PhotoCollection {
     }
 
     next() {
-        if (this.index < 10) {
+        if (this.hasNextPage()) {
             this.index++;
             return this.getSrc();
         } else {
-            return '';
+            return false;
         }
     }
 
     prev() {
-        if (this.index > 1) {
+        if (this.hasPrevPage()) {
             this.index--;
             return this.getSrc();
         } else {
-            return '';
+            return false;
         }
+    }
+
+    hasNextPage() {
+        return this.index < 10;
+    }
+
+    hasPrevPage() {
+        return this.index > 1;
     }
 
     new(options) {

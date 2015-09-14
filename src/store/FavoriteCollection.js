@@ -10,6 +10,14 @@ export default class FavoriteCollection extends PhotoCollection {
         super(options);
     }
 
+    hasNextPage() {
+        return this.index < this.photos.length;
+    }
+
+    hasPrevPage() {
+        return this.index > 0;
+    }
+
     add(src) {
         this.photos.push(src);
     }
@@ -27,6 +35,6 @@ export default class FavoriteCollection extends PhotoCollection {
     }
 
     getSrc() {
-        return this.photos[this.index+1];
+        return this.photos[this.index-1];
     }
 }
