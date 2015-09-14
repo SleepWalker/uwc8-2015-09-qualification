@@ -25,14 +25,24 @@ export default class PreferencesPage extends React.Component {
     }
 
     onWidthChage = (event) => {
+        var value = event.target.value*1;
+        if (!(value > 0)) {
+            return;
+        }
+
         this.setState({
-            width: event.target.value*1
+            width: value
         }, this.onSizeChange);
     }
 
     onHeightChage = (event) => {
+        var value = event.target.value*1;
+        if (!(value > 0)) {
+            return;
+        }
+
         this.setState({
-            height: event.target.value*1
+            height: value
         }, this.onSizeChange);
     }
 

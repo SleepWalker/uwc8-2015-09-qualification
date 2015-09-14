@@ -5,7 +5,6 @@ import PreferencesPage from 'PreferencesPage.jsx';
 
 // TODO: code comments
 // TODO: code tests
-// TODO: validation width/height values
 // TODO: preferences model
 
 export default class App extends React.Component {
