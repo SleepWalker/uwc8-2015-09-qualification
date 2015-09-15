@@ -2,6 +2,7 @@ import PhotoCollection from './PhotoCollection';
 
 export default class FavoriteCollection extends PhotoCollection {
     photos = []
+    length = 0
 
     constructor(options) {
         options = options || {};
@@ -10,31 +11,21 @@ export default class FavoriteCollection extends PhotoCollection {
         super(options);
     }
 
-    hasNextPage() {
-        return this.index < this.photos.length;
-    }
-
-    hasPrevPage() {
-        return this.index > 0;
-    }
-
     add(src) {
         this.photos.push(src);
+        this.length = this.photos.length;
     }
 
     remove(src) {
         this.photos = this.photos.filter((curSrc) => curSrc !== src);
+        this.length = this.photos.length;
     }
 
     has(src) {
         return this.photos.indexOf(src) != -1;
     }
 
-    hasPhotos() {
-        return this.photos.length > 0;
-    }
-
     getSrc() {
-        return this.photos[this.index-1];
+        return this.photos[this.index];
     }
 }

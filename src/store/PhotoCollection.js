@@ -1,10 +1,12 @@
 export default class PhotoCollection {
-    constructor({category, width = 480, height = 640, index = 1}) {
+    constructor({category, width = 480, height = 640, index = 0}) {
         this.category = category;
         this.width = width;
         this.height = height;
         this.index = index;
     }
+
+    length = 10
 
     next() {
         if (this.hasNextPage()) {
@@ -25,11 +27,15 @@ export default class PhotoCollection {
     }
 
     hasNextPage() {
-        return this.index < 10;
+        return this.index < this.length;
     }
 
     hasPrevPage() {
-        return this.index > 1;
+        return this.index > 0;
+    }
+
+    isEmpty() {
+        return this.photos.length === 0;
     }
 
     new(options) {
@@ -41,7 +47,7 @@ export default class PhotoCollection {
             this.width,
             this.height,
             this.category,
-            this.index
+            this.index + 1
         ].join('/')
     }
 }

@@ -1,9 +1,11 @@
 import React from 'react';
 
+import preferences from 'services/preferences';
+
 export default class PreferencesPage extends React.Component {
     state = {
-        width: this.props.initialWidth,
-        height: this.props.initialHeight
+        width: preferences.get('width'),
+        height: preferences.get('height')
     }
 
     render() {
@@ -60,7 +62,7 @@ export default class PreferencesPage extends React.Component {
     }
 
     onSizeChange = () => {
-        this.props.onSizeChange({
+        preferences.set({
             width: this.state.width,
             height: this.state.height
         })

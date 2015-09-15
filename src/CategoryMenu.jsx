@@ -1,4 +1,5 @@
 import React from 'react';
+import preferences from 'services/preferences';
 
 export default class CategoryMenu extends React.Component {
     state = {
@@ -42,6 +43,6 @@ export default class CategoryMenu extends React.Component {
     onChange = (event) => {
         var category = React.findDOMNode(this.refs.category).value;
 
-        this.props.onChange(category);
+        preferences.set({category});
     }
 }
