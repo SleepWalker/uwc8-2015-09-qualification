@@ -19,8 +19,13 @@ export default class PhotosPage extends React.Component {
         preferences.on(this.update);
     }
 
+    componentDidMount() {
+        window.addEventListener('keyup', this.onHotKey);
+    }
+
     componentWillUnmount() {
         preferences.off(this.update);
+        window.removeEventListener('keyup', this.onHotKey);
     }
 
     update = this.forceUpdate.bind(this)
@@ -59,7 +64,6 @@ export default class PhotosPage extends React.Component {
 
     prev = this.switchTo.bind(this, 'prev')
 
-
     switchTo(direction) {
         var src = this.state.photos[direction]();
 
@@ -79,16 +83,15 @@ export default class PhotosPage extends React.Component {
     }
 
     isFavorite(src) {
-        src = src;
-
         return favorites.has(src);
     }
 
     onToggleFavorite = () => {
-        this.toggleFavorite(this.state.photos.getSrc());
+        this.toggleFavorite();
     }
 
-    toggleFavorite = (src) => {
+    toggleFavorite = () => {
+        var src = this.state.photos.getSrc();
         if (favorites.has(src)) {
             favorites.remove(src);
         } else {
@@ -98,5 +101,24 @@ export default class PhotosPage extends React.Component {
         this.setState({
             isFavorite: favorites.has(src)
         });
+    }
+
+    onHotKey = (event) => {
+        console.log(event);
+
+        switch(event.keyCode) {
+            case 37: // left
+                this.prev();
+                break;
+            case 39: // right
+                this.next();
+                break;
+            case 16: // shift
+                this.toggleFavorite();
+                break;
+            case 13: // enter
+                this.setFilter(preferences.get('filter') == 'favorite' ? 'all' : 'favorite');
+                break;
+        }
     }
 }

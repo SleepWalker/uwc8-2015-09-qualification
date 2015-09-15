@@ -27,7 +27,7 @@ export default class PhotoCollection {
     }
 
     hasNextPage() {
-        return this.index < this.length;
+        return this.index < this.length-1;
     }
 
     hasPrevPage() {
