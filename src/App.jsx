@@ -1,28 +1,28 @@
 import React from 'react';
-import MainNav from 'MainNav.jsx';
+
 import PhotosPage from 'PhotosPage.jsx';
 import PreferencesPage from 'PreferencesPage.jsx';
 
-// TODO: code comments
-// TODO: code tests
-
 export default class App extends React.Component {
-    state = {
-        page: 'photos'
-    }
-
     render() {
-        return <div className="app">
-            <MainNav onChange={this.changePage} />
-            {
-                this.state.page == 'photos'
-                ? <PhotosPage />
-                : <PreferencesPage />
-            }
-        </div>;
-    }
+        return (
+            <div className="demo-layout-transparent mdl-layout mdl-js-layout">
+              <div className="mdl-layout__drawer">
+                <span className="mdl-layout-title">Preferences</span>
+                <PreferencesPage />
 
-    changePage = (page) => {
-        this.setState({page});
+                <span className="mdl-layout-title">Shortcuts</span>
+                <ul>
+                    <li>left/right — change photos</li>
+                    <li>up/down — change category</li>
+                    <li>shift — add to favorites</li>
+                    <li>enter — fitler favorites</li>
+                </ul>
+              </div>
+              <div className="mdl-layout__content">
+                <PhotosPage />
+              </div>
+            </div>
+        );
     }
 }

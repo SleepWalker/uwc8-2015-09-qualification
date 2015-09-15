@@ -5,4 +5,84 @@ body {
     overflow: hidden;
     padding: 0;
     margin: 0;
+    background: #000;
+}
+
+
+/* Material Design Lite */
+
+// Variables and mixins
+@import "~material-design-lite/src/variables";
+@import "~material-design-lite/src/mixins";
+
+// Resets and dependencies
+@import "~material-design-lite/src/resets/resets";
+@import "~material-design-lite/src/typography/typography";
+
+// Components
+// @import "~material-design-lite/src/palette/palette";
+@import "~material-design-lite/src/ripple/ripple";
+// @import "~material-design-lite/src/animation/animation";
+// @import "~material-design-lite/src/badge/badge";
+@import "~material-design-lite/src/button/button";
+@import "~material-design-lite/src/card/card";
+// @import "~material-design-lite/src/checkbox/checkbox";
+// @import "~material-design-lite/src/data-table/data-table";
+// @import "~material-design-lite/src/footer/mega_footer";
+// @import "~material-design-lite/src/footer/mini_footer";
+// @import "~material-design-lite/src/icon-toggle/icon-toggle";
+// @import "~material-design-lite/src/menu/menu";
+// @import "~material-design-lite/src/progress/progress";
+@import "~material-design-lite/src/layout/layout";
+// @import "~material-design-lite/src/radio/radio";
+// @import "~material-design-lite/src/slider/slider";
+// @import "~material-design-lite/src/spinner/spinner";
+@import "~material-design-lite/src/switch/switch";
+// @import "~material-design-lite/src/tabs/tabs";
+@import "~material-design-lite/src/textfield/textfield";
+// @import "~material-design-lite/src/tooltip/tooltip";
+// @import "~material-design-lite/src/shadow/shadow";
+// @import "~material-design-lite/src/grid/grid";
+
+
+.photo-viewer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: auto;
+
+    &__actions {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+    }
+}
+
+.preferences {
+    padding: 30px;
+
+    &__row {
+        margin: 10px 0;
+
+        button {
+            width: 100%;
+        }
+    }
+}
+
+.action {
+    $spacing: 5px;
+    margin-right: $spacing;
+
+    &--filter {
+        float: right;
+        margin: 0;
+        width: 75px;
+    }
 }

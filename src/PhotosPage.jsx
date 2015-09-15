@@ -9,55 +9,77 @@ import CategoryMenu from 'CategoryMenu.jsx';
 
 
 export default class PhotosPage extends React.Component {
-    state = {
-        photos
-    }
+    state = {}
 
-    constructor(props) {
-        super(props);
-
-        preferences.on(this.update);
+    componentWillMount() {
+        this.sync();
     }
 
     componentDidMount() {
+        preferences.on(this.sync);
         window.addEventListener('keyup', this.onHotKey);
+        componentHandler.upgradeAllRegistered()
+    }
+
+    componentDidUpdate() {
+        componentHandler.upgradeAllRegistered()
     }
 
     componentWillUnmount() {
-        preferences.off(this.update);
+        preferences.off(this.sync);
         window.removeEventListener('keyup', this.onHotKey);
     }
 
-    update = this.forceUpdate.bind(this)
+
+    sync = (isInit) => {
+        var curPhotos = preferences.get('filter') == 'favorite' ? favorites : photos;
+        var src = curPhotos.getSrc();
+
+        this.setState({
+            photos: curPhotos,
+            src,
+            isFavorite: this.isFavorite(src),
+            category: preferences.get('category'),
+            height: preferences.get('height'),
+            width: preferences.get('width')
+        });
+    }
 
     render() {
-        var {photos} = this.state;
-        var {width, height} = photos;
-        var src = photos.getSrc();
+        var {width, height, src, isFavorite, category} = this.state;
 
-        var isFavorite = this.isFavorite(src);
-
-        return <div className="photos">
-            {!favorites.isEmpty() ? <Filter onChange={this.setFilter} /> : ''}
-            <div className="photo-viewer">
+        return (
+            <div className="photo-viewer mdl-card mdl-shadow--2dp">
                 <div className="photos-viewer__photo" style={{width, height}}>
                     <img src={src} />
                 </div>
 
-                <div className="photo-viewer__controls">
-                    <button className="control control--prev" onClick={this.prev}>
-                        prev
-                    </button>
-                    <button className="control control--next" onClick={this.next}>
-                        next
-                    </button>
-                    <button className="control control--favorite" onClick={this.onToggleFavorite}>
-                        {isFavorite ? 'unfavorite' : 'favorite'}
+                <div className="photo-viewer__actions mdl-card__actions mdl-card--border">
+                    <span className="action">
+                        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onClick={this.prev}>
+                            prev
+                        </button>
+                    </span>
+                    <span className="action">
+                        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onClick={this.next}>
+                            next
+                        </button>
+                    </span>
+                    <span className="action">
+                        {category != 'favorites' ? <CategoryMenu initialCategory={category} /> : ''}
+                    </span>
+                    <span className="action action--filter">
+                        {!favorites.isEmpty() ? <Filter /> : ''}
+                    </span>
+                </div>
+
+                <div className="mdl-card__menu">
+                    <button onClick={this.onToggleFavorite} id="favorite" className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                        <span className="material-icons">{isFavorite ? 'favorite' : 'favorite_border'}</span>
                     </button>
                 </div>
             </div>
-            {photos.category != 'favorites' ? <CategoryMenu initialCategory={photos.category} /> : ''}
-        </div>;
+        );
     }
 
     next = this.switchTo.bind(this, 'next')
@@ -69,17 +91,10 @@ export default class PhotosPage extends React.Component {
 
         if (src) {
             this.setState({
-                isFavorite: this.isFavorite(src)
+                isFavorite: this.isFavorite(src),
+                src
             });
         }
-    }
-
-    setFilter = (filter) => {
-        this.setState({
-            photos: filter == 'favorite' ? favorites : photos
-        })
-
-        preferences.set({filter});
     }
 
     isFavorite(src) {
@@ -91,11 +106,15 @@ export default class PhotosPage extends React.Component {
     }
 
     toggleFavorite = () => {
-        var src = this.state.photos.getSrc();
+        var src = this.state.src;
         if (favorites.has(src)) {
             favorites.remove(src);
         } else {
             favorites.add(src);
+        }
+
+        if (favorites.isEmpty()) {
+            preferences.set('all');
         }
 
         this.setState({
@@ -104,8 +123,6 @@ export default class PhotosPage extends React.Component {
     }
 
     onHotKey = (event) => {
-        console.log(event);
-
         switch(event.keyCode) {
             case 37: // left
                 this.prev();
@@ -115,9 +132,6 @@ export default class PhotosPage extends React.Component {
                 break;
             case 16: // shift
                 this.toggleFavorite();
-                break;
-            case 13: // enter
-                this.setFilter(preferences.get('filter') == 'favorite' ? 'all' : 'favorite');
                 break;
         }
     }

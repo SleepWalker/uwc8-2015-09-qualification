@@ -41,11 +41,9 @@ export default class CategoryMenu extends React.Component {
         });
 
         return (
-            <div className="category">
-                <select ref="category" value={this.state.category} onChange={this.onChange}>
-                    {categories}
-                </select>
-            </div>
+            <select className="category" ref="category" value={this.state.category} onChange={this.onChange}>
+                {categories}
+            </select>
         );
     }
 

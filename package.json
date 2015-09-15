@@ -11,6 +11,7 @@
     "production": "webpack --progress --colors -p"
   },
   "dependencies": {
+    "material-design-lite": "^1.0.4-2",
     "react": "^0.13.3"
   },
   "devDependencies": {

@@ -14,21 +14,37 @@ export default class PreferencesPage extends React.Component {
         return (
             <div className="preferences">
                 <div className="preferences__row">
-                    <label htmlFor="preference-width">Width:</label>
-                    <input type="text" id="preference-width" onChange={this.onWidthChage} value={width} />
-                    <a href="#" onClick={this.onFlipSize}>flip</a>
+                    <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input className="mdl-textfield__input" type="text" id="preference-width" onChange={this.onWidthChage} value={width} />
+                        <label className="mdl-textfield__label" htmlFor="preference-width">Width</label>
+                    </div>
                 </div>
                 <div className="preferences__row">
-                    <label htmlFor="preference-height">Height:</label>
-                    <input type="text" id="preference-height" onChange={this.onHeightChage} value={height} />
+                    <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input className="mdl-textfield__input" type="text" id="preference-height" onChange={this.onHeightChage} value={height} />
+                        <label className="mdl-textfield__label" htmlFor="preference-height">Height</label>
+                    </div>
                 </div>
                 <div className="preferences__row">
-                    <button onClick={this.onFitScreen}>
-                        Fit screen size
+                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onClick={this.onFlipSize}>
+                        <span className="material-icons">autorenew</span> Flip sides
+                    </button>
+                </div>
+                <div className="preferences__row">
+                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onClick={this.onFitScreen}>
+                        <span className="material-icons">fullscreen</span> Fit screen size
                     </button>
                 </div>
             </div>
         );
+    }
+
+    componentDidMount() {
+        componentHandler.upgradeAllRegistered()
+    }
+
+    componentDidUpdate() {
+        componentHandler.upgradeAllRegistered()
     }
 
     onWidthChage = (event) => {
