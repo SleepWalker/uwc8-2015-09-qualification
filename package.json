@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "",
   "main": "./src",
-  "author": "ErickSkrauch <erickskrauch@ely.by>",
   "public": false,
   "scripts": {
     "start": "webpack-dev-server --devtool eval --progress --colors --hot",
