@@ -22,6 +22,11 @@ export default class PreferencesPage extends React.Component {
                     <label htmlFor="preference-height">Height:</label>
                     <input type="text" id="preference-height" onChange={this.onHeightChage} value={height} />
                 </div>
+                <div className="preferences__row">
+                    <button onClick={this.onFitScreen}>
+                        Fit screen size
+                    </button>
+                </div>
             </div>
         );
     }
@@ -54,10 +59,23 @@ export default class PreferencesPage extends React.Component {
         this.flipSize();
     }
 
+    onFitScreen = (event) => {
+        event.preventDefault();
+
+        this.fitSCreen();
+    }
+
     flipSize() {
         this.setState({
             width: this.state.height,
             height: this.state.width
+        }, this.onSizeChange);
+    }
+
+    fitSCreen() {
+        this.setState({
+            width: document.body.clientWidth,
+            height: document.body.clientHeight
         }, this.onSizeChange);
     }
 
